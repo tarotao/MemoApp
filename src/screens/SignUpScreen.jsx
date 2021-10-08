@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, TextInput, TouchableOpacity, Alert
+  View, Text, StyleSheet, TextInput, TouchableOpacity, Alert,
 } from 'react-native';
 import firebase from 'firebase';
 
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     lineHeight: 32,
     fontWeight: 'bold',
     marginBottom: 24,
-
   },
   input: {
     fontSize: 16,

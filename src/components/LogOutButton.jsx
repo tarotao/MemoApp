@@ -17,6 +17,7 @@ export default function LogOutButton() {
   function handlePress() {
     firebase.auth().signOut()
       .then(() => {
+      // backボタンを表示せずにLogIn画面に遷移させている
         navigation.reset({
           index: 0,
           routes: [{ name: 'LogIn' }],

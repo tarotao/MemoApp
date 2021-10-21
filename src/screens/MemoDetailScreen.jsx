@@ -1,24 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { shape, string } from 'prop-types';
 import {
   View, ScrollView, Text, StyleSheet,
 } from 'react-native';
+import firebase from 'firebase';
+import { dateToString } from '../utils/index';
 
 import CircleButton from '../components/CircleButton';
 
 export default function MemoDetailScreen(props) {
-  const { navigation } = props;
+  const { navigation, route } = props;
+  const { id } = route.params;
+  console.log(id);
+  const [memo, setMemo] = useState(null);
+
+  useEffect(() => {
+    const { currentUser } = firebase.auth();
+    let unsubscribe = () => {};
+    if (currentUser) {
+      const db = firebase.firestore();
+      const ref = db.collection(`users/${currentUser.uid}/memos`).doc(id);
+      unsubscribe = ref.onSnapshot((doc) => {
+        console.log(doc.id, doc.data());
+        const data = doc.data();
+        setMemo({
+          id: doc.id,
+          bodyText: data.bodyText,
+          updatedAt: data.updatedAt.toDate(),
+        });
+      });
+    }
+    return unsubscribe;
+  }, []);
+  // {memo && memo.bodyText}だとmemoがnullやfalseではない場合のみmemo.bodyTextが実行される
+
   return (
     <View style={styles.containar}>
 
       <View style={styles.memoHeader}>
-        <Text style={styles.memoTitle}>買い物リスト</Text>
-        <Text style={styles.memoDate}>２０２０年１２月２４日 １０：００</Text>
+        <Text style={styles.memoTitle} numberOfLines={1}>{memo && memo.bodyText}</Text>
+        <Text style={styles.memoDate}>{memo && dateToString(memo.updatedAt)}</Text>
       </View>
 
       <ScrollView style={styles.memoBody}>
         <Text style={styles.MemoText}>
-          買い物リスト
-          ああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+          {memo && memo.bodyText}
         </Text>
       </ScrollView>
 
@@ -30,6 +56,12 @@ export default function MemoDetailScreen(props) {
     </View>
   );
 }
+
+MemoDetailScreen.propTypes = {
+  route: shape({
+    params: shape({ id: string }),
+  }).isRequired,
+};
 
 const styles = StyleSheet.create({
   containar: {

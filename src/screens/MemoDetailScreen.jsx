@@ -51,8 +51,9 @@ export default function MemoDetailScreen(props) {
       <CircleButton
         style={{ top: 60, bottom: 'auto' }}
         name="pencil"
-        onPress={() => { navigation.navigate('Edit'); }}
+        onPress={() => { navigation.navigate('Edit', { id: memo.id, bodyText: memo.bodyText }); }}
       />
+      {/* ↑{ id: memo.id, bodyText: memo.bodyText }と書いて、editscreenにidとbodytextの情報を渡している */}
     </View>
   );
 }

@@ -48,7 +48,7 @@ export default function MemoList(props) {
         // { id: item.id }でmemodetailscreenにメモのIDを渡している
         onPress={() => { navigation.navigate('Detail', { id: item.id }); }}
       >
-        <View>
+        <View style={styles.memoInner}>
           <Text style={styles.memolisttitle} numberOfLines={1}>{item.bodyText}</Text>
           <Text style={styles.memolistdate}>{dateToString(item.updatedAt)}</Text>
         </View>
@@ -107,5 +107,8 @@ const styles = StyleSheet.create({
   },
   memoDelite: {
     padding: 8,
+  },
+  memoInner: {
+    flex: 1,
   },
 });

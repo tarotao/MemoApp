@@ -12,6 +12,7 @@ import CircleButton from '../components/CircleButton';
 import LogOutButton from '../components/LogOutButton';
 import Button from '../components/Button';
 import Loading from '../components/Loading';
+import { translateErrors } from '../utils';
 
 export default function MemoListScreen(props) {
   const { navigation } = props;
@@ -35,7 +36,6 @@ export default function MemoListScreen(props) {
       unsubcrive = ref.onSnapshot((snapshot) => {
         const userMemos = [];
         snapshot.forEach((doc) => {
-          console.log(doc.id, doc.data());
           const data = doc.data();
           userMemos.push({
             id: doc.id,
@@ -46,9 +46,9 @@ export default function MemoListScreen(props) {
         setMemos(userMemos);
         setLoading(false);
       }, (error) => {
+        const errorMsg = translateErrors(error.code);
         setLoading(false);
-        console.log(error);
-        Alert.alert('データの読み込みに失敗しました。');
+        Alert.alert(errorMsg.title, errorMsg.description);
       });
     }
     return unsubcrive;

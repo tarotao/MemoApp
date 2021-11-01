@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import {
-  View, StyleSheet, TextInput,
+  View, StyleSheet, TextInput, Alert,
 } from 'react-native';
 
 import firebase from 'firebase';
 
 import CircleButton from '../components/CircleButton';
 import KeybordSafeView from '../components/KeyboardSafeView';
+import { translateErrors } from '../utils';
 
 export default function MemoCreateScreen(props) {
   const { navigation } = props;
@@ -20,12 +21,12 @@ export default function MemoCreateScreen(props) {
       bodyText,
       updatedAt: new Date(),
     })
-      .then((docRef) => {
-        console.log('create', docRef.id);
+      .then(() => {
         navigation.goBack();
       })
       .catch((error) => {
-        console.log('error', error);
+        const errorMsg = translateErrors(error.code);
+        Alert.alert(errorMsg.title, errorMsg.description);
       });
   }
 
@@ -42,6 +43,7 @@ export default function MemoCreateScreen(props) {
       </View>
       <CircleButton
         name="check"
+        /* eslint-disable-next-line */
         onPress={handlePress}
       />
     </KeybordSafeView>

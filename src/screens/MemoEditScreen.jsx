@@ -43,6 +43,7 @@ export default function MemoEditlScreen(props) {
       </View>
       <CircleButton
         name="check"
+        /* eslint-disable-next-line */
         onPress={handlePress}
       />
     </KeybordSafeView>

@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "memoApp",
-    "slug": "memoApp",
+    "name": "やまたけのぶひろのメモApp",
+    "slug": "やまたけのぶひろのメモApp",
     "version": "1.0.0",
     "privacy": "unlisted",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -18,12 +18,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "yamatake-nobihiro.memoApp",
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "yamatake-nobihiro.memoApp",
+      "versionCode": 1,
+      "permissions": [],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/icon.adaptive_foreground.png",
+        "backgroundImage": "./assets/icon.adaptive_background.png"
       }
     },
     "web": {
